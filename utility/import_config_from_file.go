@@ -1,42 +1,20 @@
-package main
+package utility
 
 import (
 	"io/ioutil"
 	"strconv"
 	"strings"
+
+	"github.com/PretendoNetwork/mario-kart-8-secure/types"
 )
 
-type ServerConfig struct {
-	ServerName            string
-	ServerPort            string
-	PrudpVersion          int
-	SignatureVersion      int
-	KerberosKeySize       int
-	AccessKey             string
-	NexVersion            int
-	DatabaseIP            string
-	DatabasePort          string
-	DatabaseUseAuth       bool
-	DatabaseUsername      string
-	DatabasePassword      string
-	AccountDatabase       string
-	PNIDCollection        string
-	NexAccountsCollection string
-	MK8Database           string
-	RoomsCollection       string
-	SessionsCollection    string
-	UsersCollection       string
-	RegionsCollection     string
-	TournamentsCollection string
-}
-
-func ImportConfigFromFile(path string) (*ServerConfig, error) {
+func ImportConfigFromFile(path string) (*types.ServerConfig, error) {
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
 	indexes := strings.Split(string(data), "\n")
-	config := &ServerConfig{
+	config := &types.ServerConfig{
 		ServerName:      "server",
 		KerberosKeySize: 32,
 	}

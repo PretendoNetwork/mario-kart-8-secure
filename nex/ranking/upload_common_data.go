@@ -1,13 +1,14 @@
-package main
+package nex_ranking
 
 import (
+	"github.com/PretendoNetwork/mario-kart-8-secure/globals"
 	nex "github.com/PretendoNetwork/nex-go"
-	nexproto "github.com/PretendoNetwork/nex-protocols-go"
+	"github.com/PretendoNetwork/nex-protocols-go/ranking"
 )
 
-func uploadCommonData(err error, client *nex.Client, callID uint32, commonData []byte, uniqueID uint64) {
-	rmcResponse := nex.NewRMCResponse(nexproto.RankingProtocolID, callID)
-	rmcResponse.SetSuccess(nexproto.RankingMethodUploadCommonData, nil)
+func UploadCommonData(err error, client *nex.Client, callID uint32, commonData []byte, uniqueID uint64) {
+	rmcResponse := nex.NewRMCResponse(ranking.ProtocolID, callID)
+	rmcResponse.SetSuccess(ranking.MethodUploadCommonData, nil)
 
 	rmcResponseBytes := rmcResponse.Bytes()
 
@@ -22,5 +23,5 @@ func uploadCommonData(err error, client *nex.Client, callID uint32, commonData [
 	responsePacket.AddFlag(nex.FlagNeedsAck)
 	responsePacket.AddFlag(nex.FlagReliable)
 
-	nexServer.Send(responsePacket)
+	globals.NEXServer.Send(responsePacket)
 }
